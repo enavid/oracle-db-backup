@@ -1,0 +1,15 @@
+[Unit]
+Description=Backup retention enforcement and disk monitoring
+After=network.target
+
+[Service]
+Type=oneshot
+User=backupmgr
+Group=backupgrp
+ExecStart=/opt/backup/retention_manager.sh
+StandardOutput=append:/var/log/backup_retention.log
+StandardError=append:/var/log/backup_retention.log
+TimeoutStartSec=600
+
+[Install]
+WantedBy=multi-user.target

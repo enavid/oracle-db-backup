@@ -1,0 +1,19 @@
+[Unit]
+Description=Oracle Schema Backup (expdp + compress + checksum)
+After=network.target oracle-database.service
+Wants=oracle-database.service
+
+[Service]
+Type=oneshot
+User=oracle
+Group=backupgrp
+ExecStart=/opt/backup/oracle_backup.sh
+StandardOutput=append:/var/log/oracle_backup.log
+StandardError=append:/var/log/oracle_backup.log
+TimeoutStartSec=7200
+Nice=10
+IOSchedulingClass=best-effort
+IOSchedulingPriority=7
+
+[Install]
+WantedBy=multi-user.target

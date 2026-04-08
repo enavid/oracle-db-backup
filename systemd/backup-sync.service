@@ -1,0 +1,17 @@
+[Unit]
+Description=Sync Oracle backups to destination server via rsync/SSH
+After=network-online.target oracle-backup.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=backupsync
+Group=backupgrp
+ExecStart=/opt/backup/sync_to_destination.sh
+StandardOutput=append:/var/log/oracle_sync.log
+StandardError=append:/var/log/oracle_sync.log
+TimeoutStartSec=3600
+Nice=15
+
+[Install]
+WantedBy=multi-user.target
