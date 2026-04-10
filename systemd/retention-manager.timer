@@ -1,9 +1,11 @@
 [Unit]
-Description=Run retention manager every hour
+Description=Run retention manager daily at 06:00
+Requires=retention-manager.service
 
 [Timer]
-OnCalendar=*-*-* *:30:00
+OnCalendar=*-*-* 06:00:00
 Persistent=true
+Unit=retention-manager.service
 
 [Install]
 WantedBy=timers.target
