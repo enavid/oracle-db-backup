@@ -38,6 +38,7 @@ SCHEMAS="HR FINANCE INVENTORY APP_DATA"
 BACKUP_DIR="/opt/oracle_backups"          # Local directory to store .dmp and .gz files
 EXPDP_DIR_NAME="dump"              # Oracle directory object name pointing to BACKUP_DIR
 LOG_FILE="/var/log/oracle_backup.log"     # Log file path
+PARALLEL=8
 
 # Retention policy
 KEEP_LOCAL_DAYS=7                         # Number of days to keep local backups before cleanup
@@ -171,7 +172,7 @@ export_schema() {
 
     log_info "Exporting schema: ${schema} → ${dump_file}"
 
-    expdp "'${DB_USER}/${DB_PASS} as sysdba'" SCHEMAS="${schema}" DIRECTORY="${EXPDP_DIR_NAME}" DUMPFILE="${dump_file}" FLASHBACK_TIME=SYSTIMESTAMP COMPRESSION=ALL 2>>"${LOG_FILE}" 
+    expdp "'${DB_USER}/${DB_PASS} as sysdba'" SCHEMAS="${schema}" DIRECTORY="${EXPDP_DIR_NAME}" DUMPFILE="${dump_file}" PARALLEL=$"{PARALLEL}" FLASHBACK_TIME=SYSTIMESTAMP COMPRESSION=ALL 2>>"${LOG_FILE}" 
 
     local expdp_exit=$?
 
