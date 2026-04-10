@@ -1,6 +1,6 @@
 [Unit]
 Description=Sync Oracle backups to destination server via rsync/SSH
-After=network-online.target oracle-backup.service
+After=network-online.target
 Wants=network-online.target
 
 [Service]
